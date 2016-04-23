@@ -9,6 +9,10 @@ h1 {
     font-size: 120px;
 }
 
+h2 {
+    font-size: 100px;
+}
+
 #container {
     padding: 10px;
 }
