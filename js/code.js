@@ -67,5 +67,4 @@ function setup() {
     setInterval(tick, 100);
 }
 
-updateDate();
 setup();
