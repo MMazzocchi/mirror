@@ -20,10 +20,10 @@ function updateDate() {
     var dateStr = "Today is "+date.toLocaleFormat("%A, %B %d %Y.")
     $('#date').html(dateStr);
 
-//    var colon = ":";
-//    if(date.getSeconds() % 2 == 0) { colon = " "; }
-//    var timeStr = "It is "+date.toLocaleFormat("%l"+colon+"%M %p.");
-//    $('#time').html(timeStr);
+    var colon = ":";
+    if(date.getSeconds() % 2 == 0) { colon = " "; }
+    var timeStr = "It is "+date.toLocaleFormat("%l"+colon+"%M %p.");
+    $('#time').html(timeStr);
 }
 
 function updateWeather() {
