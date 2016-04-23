@@ -58,6 +58,7 @@ function tick() {
 function setup() {
     date = new Date();
 
+    updateDate();
     updateGreeting();
     updateDate();
     updateWeather();
