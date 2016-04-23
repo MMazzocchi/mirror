@@ -2,9 +2,10 @@ body {
     margin: 0px;
     padding: 0px;
     background-color: #000000;
+    color: #FFFFFF;
+    font-family: sans-serif;
 }
 
 #container {
-  width: 100%;
-  text-align: center;
+    padding: 10px;
 }
