@@ -10,17 +10,23 @@ h1 {
 }
 
 h2 {
+    padding-top: 20px;
     font-size: 50px;
 }
 
 h3 {
-    
+    font-size: 40px;
 }
 
 p {
     font-size: 40px;
+    padding-left: 25px;
 }
 
 #container {
+    padding: 10px;
+}
+
+#date_time_box {
     padding: 10px;
 }
