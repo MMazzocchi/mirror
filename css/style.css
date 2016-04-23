@@ -5,6 +5,10 @@ body {
     color: #FFFFFF;
 }
 
+h1 {
+    font-size: 5em;
+}
+
 #container {
     padding: 10px;
 }
