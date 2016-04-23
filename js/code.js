@@ -64,7 +64,7 @@ function setup() {
     updateWeather();
     updateNews();
 
-    setInterval(tick, 100);
+    setInterval(tick, 1000);
 }
 
 setup();
