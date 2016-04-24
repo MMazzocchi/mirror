@@ -8,11 +8,13 @@ var months = [ "January",  "February", "March",  "April",     "May",
 var days = [ "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday",
              "Saturday" ];
 
+var weatherKey = "0f6098b528945499";
+
 function updateGreeting() {
     var greetingStr = "Hello, Max.";
 
     var hours = date.getHours();
-    if(hours < 11) {
+    if(hours < 12) {
         greetingStr = "Good morning, Max.";
     } else if(hours < 18) {
         greetingStr = "Good afternoon, Max.";
@@ -85,8 +87,24 @@ function updateDate() {
     $('#time').html(timeStr);
 }
 
-function updateWeather() {
+function getWeatherData() {
+    $.ajax("http://api.wunderground.com/api/"+weatherKey+"/conditions/q/CO/Lakewood.json"
+    ).done(function (data) {
+        var weatherData = {
+            city: data.current_observation.display_location.full,
+            temp: data.current_observation.feelslike_f
+        };
+
+        updateWeather(weatherData);
+    }).error(function() { updateWeather(undefined); });
+}
+
+function updateWeather(data) {
     var weatherStr = "Could not retrieve weather information.";
+
+    if(data) {
+        weatherStr = ""+data.temp+" F in "+data.city+"."
+    }
 
     $('#weather').html(weatherStr);
 }
@@ -103,11 +121,11 @@ function tick() {
     updateGreeting();
     updateDate();
 
-    if(count % 1000 == 0) {
-        updateWeather();
+    if(count % (60*60) == 0) {
+        getWeatherData();
     }
 
-    if(count % 100000 == 0) {
+    if(count % (60*60) == 0) {
         count = 0;
 
         updateNews();
@@ -119,7 +137,7 @@ function setup() {
 
     updateGreeting();
     updateDate();
-    updateWeather();
+    getWeatherData()
     updateNews();
 
     setInterval(tick, 1000);
