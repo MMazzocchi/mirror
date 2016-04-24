@@ -20,11 +20,11 @@ h3 {
 
 p {
     font-size: 40px;
-    padding-left: 25px;
 }
 
 i {
     padding-right: 25px;
+    text-align: center;
 }
 
 .temp {
@@ -32,7 +32,15 @@ i {
 }
 
 .details {
-    font-size: 30px;
+    font-size: 25px;
+}
+
+.med-icon {
+    font-size:50px;
+}
+
+.slot {
+    text-align: center;
 }
 
 #container {

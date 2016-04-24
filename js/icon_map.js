@@ -43,9 +43,9 @@ var night_icon_map = {
 };
 
 
-function getIcon(condition) {
+function getIcon(condition, hours) {
     var icon_map = day_icon_map;
-    if(date.getHours() < 6 || date.getHours() > 18) {
+    if(hours < 6 || hours > 18) {
         icon_map = night_icon_map;
     }
 

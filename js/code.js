@@ -1,4 +1,3 @@
-var count = 0;
 var date;
 
 var months = [ "January",  "February", "March",  "April",     "May", 
@@ -103,23 +102,58 @@ function getWeatherData() {
 
         updateWeather(weatherData);
     }).error(function() { updateWeather(undefined); });
+
+    $.ajax("http://api.wunderground.com/api/"+weatherKey+"/hourly/q/CO/Lakewood.json"
+    ).done(function (data) {
+        var weatherData = {
+            slots: []
+        };
+
+        for(var i = 0; i < data.hourly_forecast.length; i += 3) {
+            var slotData = {
+                cond: data.hourly_forecast[i].condition,
+                hour: data.hourly_forecast[i].FCTTIME.hour,
+                icon: data.hourly_forecast[i].icon,
+                time: data.hourly_forecast[i].FCTTIME.civil,
+                temp: data.hourly_forecast[i].feelslike.english
+            };
+
+            weatherData.slots.push(slotData);
+        }
+
+        updateHourlyWeather(weatherData);
+    }).error(function() { updateHourlyWeather(undefined); });
+
 }
 
 function updateWeather(data) {
     var weatherStr = "<p>Could not retrieve weather information.</p>";
 
     if(data) {
-
         weatherStr  = "<p class=\"temp\">";
-        weatherStr += getIcon(data.icon);
+        weatherStr += getIcon(data.icon, date.getHours());
         weatherStr += data.temp+"&deg; F\n";
         weatherStr += "</p>\n";
         weatherStr += "<p>"+data.condition+"</p>\n";
-        weatherStr += "<p class=\"details\">High: 100&deg; F</p>\n";
-        weatherStr += "<p class=\"details\">Low: 0&deg; F</p>\n";
     }
 
     $('#weather').html(weatherStr);
+}
+
+function updateHourlyWeather(data) {
+    if(data) {
+        var weatherStr = "";
+        for(var i = 0; (i < data.slots.length) && (i < 4); i++) {
+            weatherStr += "<div class=\"col-xs-3 slot\">"
+            weatherStr += "<p class=\"details\">"+data.slots[i].time+"</p>";
+            weatherStr += "<p class=\"med-icon\">"+getIcon(data.slots[i].icon, data.slots[i].hour)+"</p>";
+            weatherStr += "<p class=\"details\">"+data.slots[i].cond+"</p>";
+            weatherStr += "<p class=\"details\">"+data.slots[i].temp+"&deg; F</p>";
+            weatherStr += "</div>\n";
+        }
+
+        $('#hourly').html(weatherStr);
+    }
 }
 
 function updateNews() {
@@ -127,20 +161,16 @@ function updateNews() {
 }
 
 function tick() {
-    count++;
-
     date = new Date();
 
     updateGreeting();
     updateDate();
 
-    if(count % (60*60) == 0) {
+    if(date.getMinutes() == 0) {
         getWeatherData();
     }
 
-    if(count % (60*60) == 0) {
-        count = 0;
-
+    if(date.getMinutes() == 0) {
         updateNews();
     }
 }
