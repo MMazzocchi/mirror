@@ -71,7 +71,11 @@ function getTimeString() {
     }
     timeStr += colon;
 
-    timeStr += date.getMinutes();
+    var min = date.getMinutes();
+    if(min < 10) {
+        min = "0"+min;
+    }
+    timeStr += min;
     timeStr += " ";
     timeStr += half;
     timeStr += ".";
@@ -100,10 +104,14 @@ function getWeatherData() {
 }
 
 function updateWeather(data) {
-    var weatherStr = "Could not retrieve weather information.";
+    var weatherStr = "<p>Could not retrieve weather information.</p>";
 
     if(data) {
-        weatherStr = ""+data.temp+" F in "+data.city+"."
+        weatherStr =  "<span>\n";
+        weatherStr += "<p class=\"temp\">"+data.temp+"&deg; F</p>\n";
+//        weatherStr += "<div>
+        weatherStr += "</span>";
+        weatherStr += "<p>"+data.city+"</p>";
     }
 
     $('#weather').html(weatherStr);
