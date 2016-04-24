@@ -23,8 +23,16 @@ p {
     padding-left: 25px;
 }
 
+i {
+    padding-right: 25px;
+}
+
 .temp {
     font-size: 100px;
+}
+
+.details {
+    font-size: 30px;
 }
 
 #container {

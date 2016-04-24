@@ -95,8 +95,10 @@ function getWeatherData() {
     $.ajax("http://api.wunderground.com/api/"+weatherKey+"/conditions/q/CO/Lakewood.json"
     ).done(function (data) {
         var weatherData = {
-            city: data.current_observation.display_location.full,
-            temp: data.current_observation.feelslike_f
+            city:      data.current_observation.display_location.full,
+            condition: data.current_observation.weather,
+            icon:      data.current_observation.icon,
+            temp:      data.current_observation.feelslike_f
         };
 
         updateWeather(weatherData);
@@ -107,11 +109,14 @@ function updateWeather(data) {
     var weatherStr = "<p>Could not retrieve weather information.</p>";
 
     if(data) {
-        weatherStr =  "<span>\n";
-        weatherStr += "<p class=\"temp\">"+data.temp+"&deg; F</p>\n";
-//        weatherStr += "<div>
-        weatherStr += "</span>";
-        weatherStr += "<p>"+data.city+"</p>";
+
+        weatherStr  = "<p class=\"temp\">";
+        weatherStr += getIcon(data.icon);
+        weatherStr += data.temp+"&deg; F\n";
+        weatherStr += "</p>\n";
+        weatherStr += "<p>"+data.condition+"</p>\n";
+        weatherStr += "<p class=\"details\">High: 100&deg; F</p>\n";
+        weatherStr += "<p class=\"details\">Low: 0&deg; F</p>\n";
     }
 
     $('#weather').html(weatherStr);
