@@ -170,7 +170,7 @@ function tick() {
         getWeatherData();
     }
 
-    if(date.getMinutes() == 0i && date.getSeconds() == 0) {
+    if(date.getMinutes() == 0 && date.getSeconds() == 0) {
         updateNews();
     }
 }
