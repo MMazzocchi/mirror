@@ -166,11 +166,11 @@ function tick() {
     updateGreeting();
     updateDate();
 
-    if(date.getMinutes() == 0) {
+    if(date.getMinutes() == 0 && date.getSeconds() == 0) {
         getWeatherData();
     }
 
-    if(date.getMinutes() == 0) {
+    if(date.getMinutes() == 0i && date.getSeconds() == 0) {
         updateNews();
     }
 }
